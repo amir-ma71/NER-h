@@ -520,6 +520,14 @@ def prepare_text():
     final_tagged = data.write_nbest_decoded_results(decode_results, pred_scores, 'raw')
 
     final = prepare_output(final_tagged)
+
+    deleted_keys = []
+    for ner in final.keys():
+        if len(final[ner]) == 0:
+            deleted_keys.append(ner)
+
+    for j in deleted_keys:
+        del final[j]
     # Return on a JSON format
     return final
 
@@ -530,4 +538,4 @@ def check():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run( host='0.0.0.0')
