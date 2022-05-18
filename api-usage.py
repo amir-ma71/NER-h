@@ -6,6 +6,7 @@ import torch
 import bclm
 from utils.data import Data
 from model.seqlabel import SeqLabel
+from data import pre_pro
 
 params = {'status': 'decode'}
 params['load_model_dir'] = 'data/token.char_cnn.ft_tok.46_seed.104.model'
@@ -492,7 +493,7 @@ def prepare_text():
 
     input_sent = request_data['text']
 
-
+    input_sent = pre_pro.stop_word_remover(pre_pro.tokenize(input_sent), is_split=True, return_split=False)
     # Detect language of text
     try:
         DetectorFactory.seed = 0
@@ -526,8 +527,12 @@ def prepare_text():
         if len(final[ner]) == 0:
             deleted_keys.append(ner)
 
+
+
+
     for j in deleted_keys:
         del final[j]
+
     # Return on a JSON format
     return final
 
