@@ -1,4 +1,4 @@
-# NER-heb
+# NER-H
 Name Entity Recognition 
 
 based on this article with a few changing:
